@@ -75,8 +75,8 @@ if args.resume:
     start_epoch = checkpoint['epoch']
 
 criterion = nn.CrossEntropyLoss()
-# optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
-optimizer = optim.Adam(net.parameters(), lr=args.lr, weight_decay=5e-4)
+optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+# optimizer = optim.Adam(net.parameters(), lr=args.lr, weight_decay=5e-4)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
 
 
@@ -102,6 +102,7 @@ def train(epoch):
 
         progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+    print("Finished current training epoch")
 
 
 def test(epoch):
@@ -124,6 +125,8 @@ def test(epoch):
             progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                          % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
+    print("Finished current testing epoch")
+
     # Save checkpoint.
     acc = 100.*correct/total
     if acc > best_acc:
@@ -139,7 +142,7 @@ def test(epoch):
         best_acc = acc
 
 print("Start training process...")
-for epoch in range(start_epoch, start_epoch+200):
+for epoch in range(start_epoch, start_epoch+100):
     train(epoch)
     test(epoch)
     scheduler.step()
