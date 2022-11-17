@@ -11,6 +11,7 @@ import torchvision.transforms as transforms
 
 import os
 import argparse
+import matplotlib.pyplot as plt
 
 from resnet import *
 from utils import progress_bar
@@ -79,6 +80,8 @@ optimizer = optim.SGD(net.parameters(), lr=args.lr, momentum=0.9, weight_decay=5
 # optimizer = optim.Adam(net.parameters(), lr=args.lr, weight_decay=5e-4)
 scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
 
+train_acc_all = []
+test_acc_all = []
 
 # Training
 def train(epoch):
@@ -102,6 +105,9 @@ def train(epoch):
 
         progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                      % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+    
+    acc = 100.*correct/total
+    train_acc_all.append(acc)
     print("Finished current training epoch")
 
 
@@ -129,6 +135,7 @@ def test(epoch):
 
     # Save checkpoint.
     acc = 100.*correct/total
+    test_acc_all.append(acc)
     if acc > best_acc:
         print('Saving..')
         state = {
@@ -146,3 +153,12 @@ for epoch in range(start_epoch, start_epoch+100):
     train(epoch)
     test(epoch)
     scheduler.step()
+
+# plot
+plt.figure(figsize=(40,20))
+plt.plot(range(len(train_acc_all)),train_acc_all, 's-', color='r', label='train_acc')
+plt.plot(range(len(test_acc_all)),test_acc_all, 's-', color='r', label='train_acc')
+plt.xlabel('Epoch')
+plt.xlabel('Accuracy')
+plt.legend(loc='best')
+plt.savefig('./result/(%.3f).jpg' % best_acc)
