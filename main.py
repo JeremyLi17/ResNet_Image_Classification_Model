@@ -55,6 +55,9 @@ testloader = torch.utils.data.DataLoader(
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
 
+print('The total number of training data is ', len(trainset))
+print('The total number of training data is ', len(testset))
+
 # Model
 print('==> Building model..')
 net = ResNet18()
@@ -149,7 +152,7 @@ def test(epoch):
         best_acc = acc
 
 print("Start training process...")
-for epoch in range(start_epoch, start_epoch+100):
+for epoch in range(start_epoch, start_epoch+200):
     train(epoch)
     test(epoch)
     scheduler.step()
