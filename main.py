@@ -13,7 +13,8 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
-from resnet import *
+# from resnet import *
+from resnet_kernel_5 import *
 from utils import progress_bar
 
 
