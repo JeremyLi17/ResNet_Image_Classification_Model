@@ -13,8 +13,9 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
+from resnet_og import *
 # from resnet import *
-from resnet_kernel_5 import *
+# from resnet_kernel_5 import *
 from utils import progress_bar
 
 
@@ -30,9 +31,13 @@ start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
 # Data
 print('==> Preparing data..')
+# do random crop and flip
 transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
     transforms.RandomHorizontalFlip(),
+    # transforms.RandomVerticalFlip(),
+    # transforms.RandomRotation(degrees=30),
+    transforms.GaussianBlur(kernel_size=3),
     transforms.ToTensor(),
     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
 ])
@@ -163,6 +168,6 @@ plt.figure(figsize=(40,20))
 plt.plot(range(len(train_acc_all)),train_acc_all, 's-', color='r', label='train_acc')
 plt.plot(range(len(test_acc_all)),test_acc_all, 's-', color='r', label='train_acc')
 plt.xlabel('Epoch')
-plt.xlabel('Accuracy')
+plt.ylabel('Accuracy')
 plt.legend(loc='best')
 plt.savefig('./result/(%.3f).jpg' % best_acc)
