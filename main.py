@@ -37,7 +37,7 @@ transform_train = transforms.Compose([
     transforms.RandomHorizontalFlip(),
     # transforms.RandomVerticalFlip(),
     # transforms.RandomRotation(degrees=30),
-    transforms.GaussianBlur(kernel_size=3),
+    # transforms.GaussianBlur(kernel_size=3),
     transforms.ToTensor(),
     transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
 ])
@@ -166,7 +166,7 @@ for epoch in range(start_epoch, start_epoch+200):
 # plot
 plt.figure(figsize=(40,20))
 plt.plot(range(len(train_acc_all)),train_acc_all, 's-', color='r', label='train_acc')
-plt.plot(range(len(test_acc_all)),test_acc_all, 's-', color='r', label='train_acc')
+plt.plot(range(len(test_acc_all)),test_acc_all, 's-', color='b', label='train_acc')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend(loc='best')
