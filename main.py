@@ -36,6 +36,7 @@ print('==> Preparing data..')
 transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
     transforms.RandomHorizontalFlip(),
+    transforms.AutoAugment(),
     # transforms.RandomVerticalFlip(),
     # transforms.RandomRotation(degrees=30),
     # transforms.GaussianBlur(kernel_size=3),
