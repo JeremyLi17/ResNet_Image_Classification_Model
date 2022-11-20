@@ -13,9 +13,10 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
-from resnet_og import *
+# from resnet_og import *
 # from resnet import *
 # from resnet_kernel_5 import *
+from resnet_3blocks import *
 from utils import progress_bar
 
 
@@ -166,7 +167,7 @@ for epoch in range(start_epoch, start_epoch+200):
 # plot
 plt.figure(figsize=(40,20))
 plt.plot(range(len(train_acc_all)),train_acc_all, 's-', color='r', label='train_acc')
-plt.plot(range(len(test_acc_all)),test_acc_all, 's-', color='b', label='train_acc')
+plt.plot(range(len(test_acc_all)),test_acc_all, 'o-', color='b', label='train_acc')
 plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend(loc='best')
