@@ -13,10 +13,10 @@ import os
 import argparse
 import matplotlib.pyplot as plt
 
-# from resnet_og import *
+from resnet_og import *
 # from resnet import *
 # from resnet_kernel_5 import *
-from resnet_3blocks import *
+# from resnet_3blocks import *
 from utils import progress_bar
 
 
