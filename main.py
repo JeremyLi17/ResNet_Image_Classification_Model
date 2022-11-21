@@ -36,7 +36,8 @@ print('==> Preparing data..')
 transform_train = transforms.Compose([
     transforms.RandomCrop(32, padding=4),
     transforms.RandomHorizontalFlip(),
-    transforms.AutoAugment(),
+    transforms.AutoAugment(policy=transforms.AutoAugmentPolicy.CIFAR10),
+    # transforms.AutoAugment(),
     # transforms.RandomVerticalFlip(),
     # transforms.RandomRotation(degrees=30),
     # transforms.GaussianBlur(kernel_size=3),
@@ -64,7 +65,7 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
 
 print('The total number of training data is ', len(trainset))
-print('The total number of training data is ', len(testset))
+print('The total number of testing data is ', len(testset))
 
 # Model
 print('==> Building model..')
